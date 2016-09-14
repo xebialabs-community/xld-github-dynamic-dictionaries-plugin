@@ -1,0 +1,39 @@
+plugins {
+  id "com.github.hierynomus.license" version "0.12.1"
+  id "com.xebialabs.xldp" version "1.0.5"
+}
+
+version = '5.2.0'
+
+def apiVersion = '2015.2.7'
+
+apply plugin: "com.github.hierynomus.license"
+apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven {
+    url 'https://dist.xebialabs.com/public/maven2'
+  }
+  maven {
+    url 'http://www.knopflerfish.org/maven2'
+  }
+
+
+}
+
+dependencies {
+  compile "com.xebialabs.deployit:udm-plugin-api:$apiVersion"
+  compile "com.xebialabs.deployit:engine-spi:$apiVersion"
+  compile "com.xebialabs.deployit:engine-api:$apiVersion"
+  compile "com.xebialabs.deployit:appserver-api:$apiVersion"
+  compile 'com.google.guava:guava:18.0'
+  compile "junit:junit:4.11"
+}
+
+license {
+  header rootProject.file('src/main/license/xebialabs_community.license')
+  strictCheck true
+}
