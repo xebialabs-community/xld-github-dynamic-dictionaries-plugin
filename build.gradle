@@ -1,5 +1,12 @@
+buildscript {
+  dependencies {
+    classpath "com.gradle.publish:plugin-publish-plugin:0.9.1"
+    classpath "gradle.plugin.com.hierynomus.gradle.plugins:jython-gradle-plugin:0.3.0"
+  }
+}
+
 plugins {
-  id "com.github.hierynomus.license" version "0.12.1"
+  id "com.github.hierynomus.license" version "0.13.0"
   id "com.xebialabs.xldp" version "1.0.5"
 }
 
@@ -8,6 +15,7 @@ version = '5.2.0'
 def apiVersion = '2015.2.7'
 
 apply plugin: "com.github.hierynomus.license"
+apply plugin: "com.github.hierynomus.jython"
 apply plugin: 'java'
 apply plugin: 'idea'
 
@@ -31,9 +39,20 @@ dependencies {
   compile "com.xebialabs.deployit:appserver-api:$apiVersion"
   compile 'com.google.guava:guava:18.0'
   compile "junit:junit:4.11"
+  jython ":PyGithub:1.28"
+  testJython ":PyGithub:1.28"
+  runtime group: 'org.python', name: 'jython-standalone', version: '2.7.0'
+
 }
 
 license {
   header rootProject.file('src/main/license/xebialabs_community.license')
-  strictCheck true
+  strictCheck false
+}
+
+
+tasks['xlPlugin'].mustRunAfter tasks.withType(Test)
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.13'
 }
