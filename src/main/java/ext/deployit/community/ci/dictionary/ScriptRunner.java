@@ -25,7 +25,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ScriptRunner {
 
-    public final static String KEY_DICTIONARY = "dictionary";
+    public final static String KEY_DICTIONARY = "ci";
     public final static String KEY_ENTRIES = "entries";
     public final static String KEY_LOGGER = "logger";
     public final static String KEY_SCRIPT_NAME = "dictionaryLoaderScriptName";

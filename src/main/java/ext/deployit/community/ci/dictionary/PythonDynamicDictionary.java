@@ -8,6 +8,8 @@ package ext.deployit.community.ci.dictionary;
 import java.util.Map;
 import com.google.common.collect.Maps;
 
+import com.xebialabs.deployit.plugin.api.reflect.Descriptor;
+import com.xebialabs.deployit.plugin.api.reflect.PropertyDescriptor;
 import com.xebialabs.deployit.plugin.api.udm.Property;
 
 public class PythonDynamicDictionary extends BaseDynamicDictionary {
@@ -18,6 +20,13 @@ public class PythonDynamicDictionary extends BaseDynamicDictionary {
     public Map<String, String> loadData() {
 
         final Map<String, String> map = Maps.newHashMap();
+        final Descriptor descriptor = this.getType().getDescriptor();
+        for (PropertyDescriptor propertyDescriptor : descriptor.getPropertyDescriptors()) {
+            String name = propertyDescriptor.getName();
+            System.out.println("ADD name = " + name);
+            map.put(name, this.getProperty(name));
+        }
+        System.out.println("**************** map = " + map);
         return (Map<String, String>) ScriptRunner.executeScript(map, scriptFile).get(ScriptRunner.KEY_ENTRIES);
     }
 }

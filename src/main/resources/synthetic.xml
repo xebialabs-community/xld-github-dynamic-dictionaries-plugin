@@ -12,8 +12,12 @@
 <synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <type type="dict.github.DynamicDictionary" extends="dynamic.PythonDynamicDictionary">
-        <property name="scriptFile" default="dict.github/load_data.py" hidden="true"/>
-        <property name="url" default="https://dict.github.com/bmoussaud/xld-petclinic-docker/blob/master/dar/config/log4j.properties"/>
+    <type type="github.DynamicDictionary" extends="dynamic.PythonDynamicDictionary">
+        <property name="scriptFile" default="dict/github/load_data.py" hidden="true"/>
+        <property name="username" category="Github"/>
+        <property name="password" category="Github" password="true"/>
+        <property name="repository" category="Github"/>
+        <property name="branch" category="Github" default="master"/>
+        <property name="path" category="Github"/>
     </type>
 </synthetic>

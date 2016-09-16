@@ -17,12 +17,3 @@ print "------"
 entries['benoit']='moussaud'
 print "------"
 
-from github import Github
-
-# First create a Github instance:
-g = Github("bmoussaud", "xxxxxxx")
-
-# Then play with your Github objects:
-for repo in g.get_user().get_repos():
-    print repo.name
-    repo.edit(has_wiki=False)
