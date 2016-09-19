@@ -20,4 +20,10 @@
         <property name="branch" category="Github" default="master"/>
         <property name="path" category="Github"/>
     </type>
+
+    <type-modification type="dynamic.PythonDynamicDictionary">
+        <method name="load" label="Load the dictionary " delegate="jythonScript"
+                script="dict/python/load.py">
+        </method>
+    </type-modification>
 </synthetic>

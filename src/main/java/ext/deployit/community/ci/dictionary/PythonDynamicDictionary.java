@@ -10,8 +10,14 @@ import com.google.common.collect.Maps;
 
 import com.xebialabs.deployit.plugin.api.reflect.Descriptor;
 import com.xebialabs.deployit.plugin.api.reflect.PropertyDescriptor;
+import com.xebialabs.deployit.plugin.api.udm.Metadata;
 import com.xebialabs.deployit.plugin.api.udm.Property;
 
+@Metadata(
+        root = Metadata.ConfigurationItemRoot.ENVIRONMENTS,
+        description = "A Dictionary that resolves the value dynamically using a pythons script",
+        virtual = true
+)
 public class PythonDynamicDictionary extends BaseDynamicDictionary {
 
     @Property(description = "python script use to load the data", required = true, category = "Advanced")
@@ -23,10 +29,8 @@ public class PythonDynamicDictionary extends BaseDynamicDictionary {
         final Descriptor descriptor = this.getType().getDescriptor();
         for (PropertyDescriptor propertyDescriptor : descriptor.getPropertyDescriptors()) {
             String name = propertyDescriptor.getName();
-            System.out.println("ADD name = " + name);
             map.put(name, this.getProperty(name));
         }
-        System.out.println("**************** map = " + map);
         return (Map<String, String>) ScriptRunner.executeScript(map, scriptFile).get(ScriptRunner.KEY_ENTRIES);
     }
 }

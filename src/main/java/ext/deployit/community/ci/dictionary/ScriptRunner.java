@@ -45,7 +45,6 @@ public class ScriptRunner {
             se = loadScriptEngine(getLibraryScripts(scriptClasspath));
             Bindings bindings = createBindings(pythonContext);
             loadLibraryScriptsAndEval(scriptName, se, bindings, scriptClasspath);
-
             return pythonContext;
         } catch (IOException e) {
             logger.error("Error on orchestrator script : scriptname  {} scriptclasspath {} for dictionary {} ", scriptName, scriptClasspath, ci);

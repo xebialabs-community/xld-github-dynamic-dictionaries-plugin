@@ -20,7 +20,10 @@ public class ScriptRunnerTest extends TestCase {
         map.put("url", "https://dict.github.com/bmoussaud/xld-petclinic-docker/blob/master/dar/config/log4j.properties");
 
         final Map<String, Object> stringObjectMap = ScriptRunner.executeScript(map, "test/load_data_test.py");
-        System.out.println(stringObjectMap);
+        final Map<String, String> entries = (Map<String, String>) stringObjectMap.get("entries");
+
+        assertTrue(entries.size() > 0);
+        assertTrue(entries.get("benoit").equals("moussaud"));
 
     }
 
