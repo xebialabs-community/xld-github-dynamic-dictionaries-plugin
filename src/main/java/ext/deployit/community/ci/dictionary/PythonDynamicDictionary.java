@@ -28,8 +28,9 @@ public class PythonDynamicDictionary extends BaseDynamicDictionary {
         final Map<String, String> map = Maps.newHashMap();
         final Descriptor descriptor = this.getType().getDescriptor();
         for (PropertyDescriptor propertyDescriptor : descriptor.getPropertyDescriptors()) {
-            String name = propertyDescriptor.getName();
-            map.put(name, this.getProperty(name));
+            final String name = propertyDescriptor.getName();
+            final String property = this.getProperty(name);
+            map.put(name, property);
         }
         return (Map<String, String>) ScriptRunner.executeScript(map, scriptFile).get(ScriptRunner.KEY_ENTRIES);
     }
