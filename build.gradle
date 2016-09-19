@@ -31,7 +31,6 @@ repositories {
     url 'http://www.knopflerfish.org/maven2'
   }
 
-
 }
 
 dependencies {
@@ -51,11 +50,4 @@ dependencies {
 license {
   header rootProject.file('src/main/license/xebialabs_community.license')
   excludes(["github/**"])
-}
-
-
-tasks['xlPlugin'].mustRunAfter tasks.withType(Test)
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '2.13'
 }
