@@ -12,7 +12,7 @@ plugins {
   id "com.github.hierynomus.jython" version "0.3.0"
 }
 
-version = '5.2.0'
+version = '1.0.0'
 
 def apiVersion = '2015.2.7'
 
