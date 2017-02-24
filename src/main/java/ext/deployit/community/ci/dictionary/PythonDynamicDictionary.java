@@ -5,13 +5,13 @@
  */
 package ext.deployit.community.ci.dictionary;
 
-import java.util.Map;
 import com.google.common.collect.Maps;
-
 import com.xebialabs.deployit.plugin.api.reflect.Descriptor;
 import com.xebialabs.deployit.plugin.api.reflect.PropertyDescriptor;
 import com.xebialabs.deployit.plugin.api.udm.Metadata;
 import com.xebialabs.deployit.plugin.api.udm.Property;
+
+import java.util.Map;
 
 @Metadata(
         root = Metadata.ConfigurationItemRoot.ENVIRONMENTS,
@@ -24,13 +24,11 @@ public class PythonDynamicDictionary extends BaseDynamicDictionary {
     private String scriptFile;
 
     public Map<String, String> loadData() {
-
-        final Map<String, String> map = Maps.newHashMap();
+        final Map<String, Object> map = Maps.newHashMap();
         final Descriptor descriptor = this.getType().getDescriptor();
         for (PropertyDescriptor propertyDescriptor : descriptor.getPropertyDescriptors()) {
             final String name = propertyDescriptor.getName();
-            final String property = this.getProperty(name);
-            map.put(name, property);
+            map.put(name, this.getProperty(name));
         }
         return (Map<String, String>) ScriptRunner.executeScript(map, scriptFile).get(ScriptRunner.KEY_ENTRIES);
     }

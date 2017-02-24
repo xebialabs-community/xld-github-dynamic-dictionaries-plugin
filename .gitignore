@@ -4,5 +4,6 @@ build/
 *.ipr
 *.iws
 .idea/
+classes/
 
 

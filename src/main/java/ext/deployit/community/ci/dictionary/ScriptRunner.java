@@ -5,6 +5,14 @@
  */
 package ext.deployit.community.ci.dictionary;
 
+import com.google.common.collect.Lists;
+import com.google.common.io.Files;
+import com.google.common.io.Resources;
+import com.xebialabs.deployit.engine.spi.exception.DeployitException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.script.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -12,14 +20,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.script.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import com.google.common.collect.Lists;
-import com.google.common.io.Files;
-import com.google.common.io.Resources;
-
-import com.xebialabs.deployit.engine.spi.exception.DeployitException;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -32,12 +32,15 @@ public class ScriptRunner {
 
     public final static String SCRIPT_PATH = "./ext";
 
-    public static Map<String, Object> executeScript(Map<String, String> ci, String scriptName) {
+    public static Map<String, Object> executeScript(Map<String, Object> ci, String scriptName) {
         Map<String, Object> pythonContext = new HashMap<String, Object>();
         pythonContext.put(KEY_DICTIONARY, ci);
         pythonContext.put(KEY_ENTRIES, new HashMap<String, String>());
         pythonContext.put(KEY_LOGGER, logger);
         pythonContext.put(KEY_SCRIPT_NAME, scriptName);
+        if (logger.isDebugEnabled()) {
+            logger.debug("execute script " + scriptName + " with the context " + pythonContext);
+        }
 
         ScriptEngine se;
         final String scriptClasspath = "";

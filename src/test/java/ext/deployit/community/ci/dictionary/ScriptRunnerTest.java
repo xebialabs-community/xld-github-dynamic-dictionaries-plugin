@@ -16,7 +16,7 @@ public class ScriptRunnerTest extends TestCase {
 
     @Test
     public void test1() throws Exception {
-        final Map<String, String> map = Maps.newHashMap();
+        final Map<String, Object> map = Maps.newHashMap();
         map.put("url", "https://dict.github.com/bmoussaud/xld-petclinic-docker/blob/master/dar/config/log4j.properties");
 
         final Map<String, Object> stringObjectMap = ScriptRunner.executeScript(map, "test/load_data_test.py");
