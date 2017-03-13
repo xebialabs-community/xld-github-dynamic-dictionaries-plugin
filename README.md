@@ -31,4 +31,10 @@ Below a screenshot that defines the parameters of the `github.DynamicDictionary`
 
 ![](images/Github_dynamic_dictionary.png)
 
+The expected format of the property file is a standard `properties` file. For example:
+```
+propx=valuex
+propy=valuey
+```
+
 

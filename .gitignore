@@ -1,9 +1,10 @@
-build/
 .gradle/
+.idea/
+build/
+classes/
 *.iml
 *.ipr
 *.iws
-.idea/
-classes/
+supervisord.*
 
 
