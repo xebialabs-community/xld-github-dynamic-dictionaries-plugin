@@ -6,10 +6,10 @@ The [GitHub](http://www.github.com) Dynamic Dictionary is a XL Deploy plugin tha
 
 Place the plugin JAR file into your `SERVER_HOME/plugins` directory.
 
-# Exemple #
+# Example #
 
 Below a screenshot that defines the parameters of the `github.DynamicDictionary`
 
-![](Github_dynamic_dictionary.png)
+![](images/Github_dynamic_dictionary.png)
 
 
