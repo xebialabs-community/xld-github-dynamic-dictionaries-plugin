@@ -1,0 +1,31 @@
+---
+engines:
+  checkstyle:
+    enabled: true
+    channel: beta
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+      - javascript
+      - python
+      - php
+  fixme:
+    enabled: true
+  pmd:
+    enabled: true
+    channel: beta
+  radon:
+    enabled: true
+ratings:
+  paths:
+  - "**.java"
+  - "**.inc"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+  - "**.php"
+  - "**.py"
+  - "**.rb"
+exclude_paths: []
