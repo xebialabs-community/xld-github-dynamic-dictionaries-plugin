@@ -21,7 +21,7 @@ path = ci['path']  # 'dar/config/log4j.properties'
 
 # First create a Github instance:
 print ("open a connection to github using the '%s' username" % username)
-  g = Github(base_url=base_url, login_or_token=token)
+  g = Github(username, password)
 
 print("get '%s' repository" % repository)
 repo = g.get_user().get_repo(repository)
