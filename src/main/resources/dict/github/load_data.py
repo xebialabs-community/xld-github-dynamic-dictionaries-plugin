@@ -10,6 +10,8 @@
 
 from github import Github
 
+base_url = ci['base_url']
+token = ci['token']
 username = ci['username']
 password = ci['password']
 repository = ci['repository']  # 'xld-petclinic-docker'
@@ -18,8 +20,14 @@ path = ci['path']  # 'dar/config/log4j.properties'
 
 
 # First create a Github instance:
-print "open a connection to github using the '%s' username" % username
-g = Github(username, password)
+
+if base_url:
+  print "open a connection to github enterprise at '%s'" % base_url
+  g = Github(username, password)
+else:    
+  print "open a connection to github using the '%s' username" % username
+  g = Github(base_url=base_url, login_or_token=token)
+
 print "get '%s' repository" % repository
 repo = g.get_user().get_repo(repository)
 print "get content of '%s' in '%s' branch " % (path, branch)

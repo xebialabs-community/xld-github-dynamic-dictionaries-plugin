@@ -19,11 +19,13 @@
 
     <type type="github.DynamicDictionary" extends="dynamic.PythonDynamicDictionary">
         <property name="scriptFile" default="dict/github/load_data.py" hidden="true"/>
-        <property name="username" category="Github"/>
-        <property name="password" category="Github" password="true"/>
-        <property name="repository" category="Github"/>
-        <property name="branch" category="Github" default="master"/>
-        <property name="path" category="Github"/>
+        <property name="base_url" category="Github Enterprise" description="Github Enterprise API url (e.g. https://github.prod/api/v3)"/>
+        <property name="token" category="Github Enterprise" description="Github Enterprise token" password="true"/>
+        <property name="username" category="Github.com"/>
+        <property name="password" category="Github.com" password="true"/>
+        <property name="repository" category="Location"/>
+        <property name="branch" category="Location" default="master"/>
+        <property name="path" category="Location"/>
     </type>
 
     <type-modification type="dynamic.PythonDynamicDictionary">
