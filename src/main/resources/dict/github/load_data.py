@@ -23,10 +23,10 @@ path = ci['path']  # 'dar/config/log4j.properties'
 
 if base_url:
   print "open a connection to github enterprise at '%s'" % base_url
-  g = Github(username, password)
-else:    
-  print "open a connection to github using the '%s' username" % username
   g = Github(base_url=base_url, login_or_token=token)
+else:    
+  print "open a connection to github using the '%s' username" % username  
+  g = Github(username, password)
 
 print "get '%s' repository" % repository
 repo = g.get_user().get_repo(repository)
