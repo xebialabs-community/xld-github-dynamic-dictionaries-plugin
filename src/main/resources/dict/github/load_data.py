@@ -11,7 +11,6 @@
 from github import Github
 
 base_url = ci['base_url']
-token = ci['token']
 username = ci['username']
 password = ci['password']
 repository = ci['repository']  # 'xld-petclinic-docker'
@@ -24,7 +23,7 @@ print ("open a connection to github using the '%s' username" % username)
   g = Github(username, password)
 
 print("get '%s' repository" % repository)
-repo = g.get_user().get_repo(repository)
+repo = g.get_repo(repository)
 print("get content of '%s' in '%s' branch " % (path, branch))
 contents = repo.get_contents(path, branch)
 # print "decoded_content", contents.decoded_content
