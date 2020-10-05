@@ -8,7 +8,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <type type="github.DynamicDictionary" extends="dynamic.PythonDynamicDictionary">
-        <icon>icons/types/GitHub-Mark-64px.png</icon>
+        <icon>icons/types/github-logo.svg</icon>
         <property name="scriptFile" default="dict/github/load_data.py" hidden="true"/>
         <property name="username" category="Github"/>
         <property name="password" category="Github" password="true"/>

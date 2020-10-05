@@ -31,6 +31,10 @@ dependencies {
     compile 'com.google.guava:guava:18.0'
     compile "junit:junit:4.11"
 
+    // https://mvnrepository.com/artifact/org.eclipse.mylyn.github/org.eclipse.egit.github.core
+    compile group: 'org.eclipse.mylyn.github', name: 'org.eclipse.egit.github.core', version: '2.1.5'
+
+
     //jython "PyGithub:PyGithub:v1.53:github"
     jython "PyGithub:PyGithub:v1.28:github"
     jython ":requests:2.19.1"
