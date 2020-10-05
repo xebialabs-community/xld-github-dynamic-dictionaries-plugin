@@ -18,14 +18,15 @@ path = ci['path']  # 'dar/config/log4j.properties'
 
 
 # First create a Github instance:
-print "open a connection to github using the '%s' username" % username
+print ("open a connection to github using the '%s' username" % username)
 g = Github(username, password)
-print "get '%s' repository" % repository
+print("get '%s' repository" % repository)
 repo = g.get_user().get_repo(repository)
-print "get content of '%s' in '%s' branch " % (path, branch)
+print("get content of '%s' in '%s' branch " % (path, branch))
 contents = repo.get_contents(path, branch)
 # print "decoded_content", contents.decoded_content
 
+entries = {}
 for line in contents.decoded_content.split('\n'):
     line = line.rstrip()  # removes trailing whitespace and '\n' chars
 
