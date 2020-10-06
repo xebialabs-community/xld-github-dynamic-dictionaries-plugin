@@ -1,0 +1,71 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/MyApp
+  type: udm.Application
+  lastVersion: "2.3"
+  children:
+  - name: "1.1"
+    type: udm.DeploymentPackage
+    deployables:
+    - name: petconfig.properties
+      type: file.File
+      placeholders:
+      - TITLE
+      fileEncodings:
+        ".+\\.properties": ISO-8859-1
+      targetPath: /tmp/{{branch}}
+      createTargetPath: "true"
+      file: !file "artifacts/Applications/MyApp/1.1/petconfig.properties/petconfig.properties"
+  - name: "2.0"
+    type: udm.DeploymentPackage
+    deployables:
+    - name: petconfig.properties
+      type: file.File
+      placeholders:
+      - TITLE
+      - version
+      fileEncodings:
+        ".+\\.properties": ISO-8859-1
+      targetPath: /tmp/{{branch}}
+      createTargetPath: "True"
+      file: !file "artifacts/Applications/MyApp/2.0/petconfig.properties/petconfig.properties"
+  - name: "1.0"
+    type: udm.DeploymentPackage
+    deployables:
+    - name: petconfig.properties
+      type: file.File
+      placeholders:
+      - TITLE
+      fileEncodings:
+        ".+\\.properties": ISO-8859-1
+      targetPath: /tmp/{{branch}}
+      createTargetPath: "true"
+      file: !file "artifacts/Applications/MyApp/1.0/petconfig.properties/petconfig.properties"
+  - name: "2.3"
+    type: udm.DeploymentPackage
+    deployables:
+    - name: petconfig.properties
+      type: file.File
+      placeholders:
+      - TITLE
+      - version
+      fileEncodings:
+        ".+\\.properties": ISO-8859-1
+      targetPath: /tmp/{{branch}}
+      createTargetPath: "True"
+      file: !file "artifacts/Applications/MyApp/2.3/petconfig.properties/petconfig.properties"
+  - name: "2.2"
+    type: udm.DeploymentPackage
+    deployables:
+    - name: petconfig.properties
+      type: file.File
+      placeholders:
+      - TITLE
+      - version
+      fileEncodings:
+        ".+\\.properties": ISO-8859-1
+      targetPath: /tmp/{{branch}}
+      createTargetPath: "True"
+      file: !file "artifacts/Applications/MyApp/2.2/petconfig.properties/petconfig.properties"

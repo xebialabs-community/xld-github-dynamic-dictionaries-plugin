@@ -1,0 +1,5 @@
+xl-deploy:
+  authmethod: http
+  password: admin
+  url: http://localhost:4542
+  username: admin

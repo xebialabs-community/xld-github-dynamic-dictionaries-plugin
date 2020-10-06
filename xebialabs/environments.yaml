@@ -1,0 +1,30 @@
+---
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- name: Environments/dev
+  type: udm.Environment
+  members:
+  - Infrastructure/localhost-dev
+  dictionaries:
+  - Environments/dev.config
+- name: Environments/dev.config
+  type: github.Dictionary
+  useCache: false
+  token: !value "Environments_dev_config_token"
+  repository: bmoussaud/sample_configuration
+  branch: dev
+  path: petportal/config.properties
+- name: Environments/prod
+  type: udm.Environment
+  members:
+  - Infrastructure/localhost-prod
+  dictionaries:
+  - Environments/prod.config
+- name: Environments/prod.config
+  type: github.Dictionary
+  token: !value "Environments_prod_config_token"
+  repository: bmoussaud/sample_configuration
+  branch: prod
+  path: petportal/config.properties
+  useDeployedPackageVersion: true
