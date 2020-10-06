@@ -50,7 +50,7 @@ import com.google.common.cache.*;
 )
 public abstract class BaseDynamicDictionary extends AbstractDictionary  implements IEncryptedDictionary  {
 
-    @Property(description = "Use a cache (5 seconds)...", defaultValue = "True", category = "Advanced")
+    @Property(description = "Use a cache (5 seconds)...", defaultValue = "True", category = "Others")
     private boolean useCache;
 
     @Override

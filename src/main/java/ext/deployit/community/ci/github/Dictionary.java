@@ -12,6 +12,7 @@ import ext.deployit.community.ci.dictionary.BaseDynamicDictionary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PreDestroy;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class Dictionary extends BaseDynamicDictionary {
 
     private static Logger logger = LoggerFactory.getLogger(Dictionary.class);
 
-    @Property(description = "Address of GitHub", defaultValue = "api.github.com")
+    @Property(description = "Address of GitHub", defaultValue = "api.github.com", category = "Others")
     public String api;
 
     @Property(description = "OAuth2 token authentication, can be empty for access a public repository but the API rate limit exceeded can be quickly reached", password = true, required = false)
@@ -36,6 +37,15 @@ public class Dictionary extends BaseDynamicDictionary {
 
     @Property(description = "The path to the property file")
     public String path;
+
+    @Property(description = "Use the version of the package as the tag to get the data from GitHub", required = false, defaultValue = "false")
+    public boolean useDeployedPackageVersion;
+
+    @Property(description = "Version detected as the deployed package", required = false, isTransient = true, hidden = true)
+    public String detectedVersion;
+
+    @Property(description = "Prefix used by the tag", required = false, category = "Others", defaultValue = "v")
+    public String githubVersionPrefix;
 
     @ControlTask(label = "Check connection")
     public List<Step> checkConnection() {
@@ -53,12 +63,15 @@ public class Dictionary extends BaseDynamicDictionary {
 
             @Override
             public StepExitCode execute(ExecutionContext executionContext) throws Exception {
+                executionContext.logOutput("open connection on the GitHub repository " + repository + " branch" + branch);
                 GithubClient githubClient = new GithubClient(api, token, repository, branch);
                 githubClient.connect();
-                executionContext.logOutput("connected ");
+                executionContext.logOutput("connected !");
+                executionContext.logOutput("read " + path);
                 ImmutableMap<String, String> map = Maps.fromProperties(githubClient.readProperties(path));
                 executionContext.logOutput("content is ");
                 executionContext.logOutput(map.toString());
+                executionContext.logOutput("done");
                 return StepExitCode.SUCCESS;
             }
         };
@@ -70,8 +83,12 @@ public class Dictionary extends BaseDynamicDictionary {
 
         long start = System.currentTimeMillis();
         try {
-            logger.debug("loadData from github ({}/{})", repository, branch);
-            GithubClient githubClient = new GithubClient(api, token, repository, branch);
+            String currentBranch = branch;
+            if (this.useDeployedPackageVersion) {
+                currentBranch = this.detectedVersion;
+            }
+            logger.debug("loadData from the GitHub repository '{}' on the branch {}')", repository, currentBranch);
+            GithubClient githubClient = new GithubClient(api, token, repository, currentBranch);
             githubClient.connect();
             logger.debug("read ({})", path);
             return Maps.fromProperties(githubClient.readProperties(path));
@@ -87,8 +104,12 @@ public class Dictionary extends BaseDynamicDictionary {
         logger.debug("{} Dictionary.applyTo {}", this, context);
         if (context.getApplication() != null)
             logger.debug("context.getApplication().getName() = {} ", context.getApplication().getName());
-        if (context.getApplicationVersion() != null)
+
+        if (context.getApplicationVersion() != null) {
             logger.debug("context.getApplicationVersion().getName() = {} ", context.getApplicationVersion().getName());
+            this.detectedVersion = githubVersionPrefix + context.getApplicationVersion().getName();
+        }
+
         if (context.getContainer() != null)
             logger.debug("context.getContainer().getName() = {}", context.getContainer().getName());
         if (context.getEnvironment() != null)
@@ -96,5 +117,6 @@ public class Dictionary extends BaseDynamicDictionary {
         logger.debug("/ {} Dictionary.applyTo {}", this, context);
         return super.applyTo(context);
     }
+
 
 }
