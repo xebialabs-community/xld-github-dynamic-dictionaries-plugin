@@ -12,4 +12,4 @@ jobs:
         with:
           java-version: 1.8
       - name: Build with Gradle
-        run: ./gradlew clean build -PGithubClientTestToken=${{ secrets.GH_API_TOKEN }}
+        run: ./gradlew clean build --info --stacktrace -PGithubClientTestToken=${{ secrets.GH_API_TOKEN }}
