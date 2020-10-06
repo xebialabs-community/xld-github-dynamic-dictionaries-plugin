@@ -53,7 +53,7 @@ public abstract class BaseDynamicDictionary extends AbstractDictionary  implemen
     @Property(description = "Reload the entries during the planning phase", defaultValue = "True", category = "Advanced")
     private boolean dynamicLoad;
 
-    @Property(description = "Use a cache (5 seconds)...", defaultValue = "True", category = "Advanced", hidden = false)
+    @Property(description = "Use a cache (5 seconds)...", defaultValue = "True", category = "Advanced")
     private boolean useCache;
 
     @Override
@@ -104,6 +104,7 @@ public abstract class BaseDynamicDictionary extends AbstractDictionary  implemen
 
     @Override
     public Map<String, String> getEncryptedEntries() {
+        logger.error("Return empty encrypted entries");
         return Collections.emptyMap();
     }
 

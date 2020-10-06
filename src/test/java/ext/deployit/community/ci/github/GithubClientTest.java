@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 public class GithubClientTest {
 
 
-    private static String token = "daef346da3e5df0f36718d845c006f7e37c077c6";
+    private static String token = System.getProperty("GithubClientTest.token");
 
     @Test
     public void connect() {
