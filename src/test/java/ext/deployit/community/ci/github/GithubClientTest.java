@@ -30,7 +30,7 @@ public class GithubClientTest {
             "master");
         githubClient.connect();
         Properties properties = githubClient.readProperties("petportal/config.properties");
-        assertTrue(properties.size() == 2);
+        assertTrue(properties.size() == 3);
         assertTrue(properties.get("branch").equals("master"));
     }
 

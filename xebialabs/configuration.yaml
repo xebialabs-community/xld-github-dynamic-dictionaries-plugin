@@ -1,0 +1,9 @@
+---
+apiVersion: xl-deploy/v1
+kind: Configuration
+spec:
+- name: Configuration/Github Provider
+  type: github.RepositoryLookupValueProvider
+  token: !value "Configuration_Github_Provider_token"
+  repository: bmoussaud/sample_configuration
+  path: petportal/config.properties

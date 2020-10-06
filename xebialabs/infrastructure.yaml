@@ -2,6 +2,11 @@
 apiVersion: xl-deploy/v1
 kind: Infrastructure
 spec:
+- name: Infrastructure/deployit.vm
+  type: overthere.SshHost
+  os: UNIX
+  address: deployit.vm
+  username: ubuntu
 - name: Infrastructure/localhost-dev
   type: overthere.LocalHost
   os: UNIX
