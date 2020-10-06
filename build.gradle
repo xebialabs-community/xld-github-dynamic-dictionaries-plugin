@@ -67,6 +67,9 @@ dependencies {
 
 }
 
+tasks.withType(org.gradle.api.tasks.testing.Test) {
+  systemProperty 'GithubClientTest.token', GithubClientTestToken
+}
 
 processResources.configure {
   from 'src/main/config'

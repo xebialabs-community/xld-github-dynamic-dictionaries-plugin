@@ -37,4 +37,10 @@ propx=valuex
 propy=valuey
 ```
 
+# Run unit tests
+
+```
+./gradlew clean test -PGithubClientTestToken=<GitHubToken>
+```
+
 

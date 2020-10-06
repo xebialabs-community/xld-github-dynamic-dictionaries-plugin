@@ -14,6 +14,7 @@ public class GithubClientTest {
 
     @Test
     public void connect() {
+
         GithubClient githubClient = new GithubClient("api.github.com",
             token,
             "bmoussaud/sample_configuration",

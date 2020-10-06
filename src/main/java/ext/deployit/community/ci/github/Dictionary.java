@@ -7,13 +7,12 @@ import com.xebialabs.deployit.plugin.api.flow.ExecutionContext;
 import com.xebialabs.deployit.plugin.api.flow.Step;
 import com.xebialabs.deployit.plugin.api.flow.StepExitCode;
 import com.xebialabs.deployit.plugin.api.udm.*;
-import com.xebialabs.deployit.plugin.api.udm.base.BaseConfigurationItem;
+
 import ext.deployit.community.ci.dictionary.BaseDynamicDictionary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PreDestroy;
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Map;
 
