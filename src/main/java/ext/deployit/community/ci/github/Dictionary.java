@@ -6,10 +6,7 @@ import com.google.common.collect.Maps;
 import com.xebialabs.deployit.plugin.api.flow.ExecutionContext;
 import com.xebialabs.deployit.plugin.api.flow.Step;
 import com.xebialabs.deployit.plugin.api.flow.StepExitCode;
-import com.xebialabs.deployit.plugin.api.udm.ControlTask;
-import com.xebialabs.deployit.plugin.api.udm.Metadata;
-import com.xebialabs.deployit.plugin.api.udm.Property;
-import com.xebialabs.deployit.plugin.api.udm.TypeIcon;
+import com.xebialabs.deployit.plugin.api.udm.*;
 import com.xebialabs.deployit.plugin.api.udm.base.BaseConfigurationItem;
 import ext.deployit.community.ci.dictionary.BaseDynamicDictionary;
 
@@ -23,7 +20,7 @@ public class Dictionary extends BaseDynamicDictionary {
     @Property(description = "Address of GitHub", defaultValue = "api.github.com")
     public String api;
 
-    @Property(description = "OAuth2 token authentication, can be empty for access a public repository", password = true, required = false)
+    @Property(description = "OAuth2 token authentication, can be empty for access a public repository but the API rate limit exceeded can be quickly reached", password = true, required = false)
     public String token;
 
     @Property(description = "The GitHub repository owner/repo")
@@ -68,5 +65,15 @@ public class Dictionary extends BaseDynamicDictionary {
         GithubClient githubClient = new GithubClient(api, token, repository, branch);
         githubClient.connect();
         return Maps.fromProperties(githubClient.readProperties(path));
+    }
+
+    @Override
+    public IDictionary applyTo(DictionaryContext context) {
+        System.out.println("Dictionary.applyTo "+context);
+        System.out.println("context.getApplication().getName() = " + context.getApplication().getName());
+        System.out.println("context.getApplicationVersion().getName() = " + context.getApplicationVersion().getName());
+        System.out.println("context.getContainer().getName() = " + context.getContainer().getName());
+        System.out.println("context.getEnvironment().getName() = " + context.getEnvironment().getName());
+        return super.applyTo(context);
     }
 }

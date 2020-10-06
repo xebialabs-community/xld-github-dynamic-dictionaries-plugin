@@ -10,7 +10,8 @@ import static org.junit.Assert.assertTrue;
 public class GithubClientTest {
 
 
-    private static String token="d266616b3e12a57151d0a4186f26e5f369f9af32";
+    private static String token = "daef346da3e5df0f36718d845c006f7e37c077c6";
+
     @Test
     public void connect() {
         GithubClient githubClient = new GithubClient("api.github.com",
