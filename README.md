@@ -44,3 +44,24 @@ propy=valuey
 ```
 
 
+## References
+
+## How to release a new  candidate version
+
+```
+$./gradlew candidate
+```
+
+This command automatically tags the version, pushes it remotely and
+trigger a release candidate build using github actions.
+
+## How to release a new version
+
+```
+$./gradlew final
+```
+
+This command automatically tags the version, pushes it remotely and
+trigger a release build using github actions.
+
+Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
