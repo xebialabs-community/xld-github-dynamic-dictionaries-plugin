@@ -50,9 +50,6 @@ import com.google.common.cache.*;
 )
 public abstract class BaseDynamicDictionary extends AbstractDictionary  implements IEncryptedDictionary  {
 
-    @Property(description = "Reload the entries during the planning phase", defaultValue = "True", category = "Advanced")
-    private boolean dynamicLoad;
-
     @Property(description = "Use a cache (5 seconds)...", defaultValue = "True", category = "Advanced")
     private boolean useCache;
 
@@ -97,14 +94,14 @@ public abstract class BaseDynamicDictionary extends AbstractDictionary  implemen
             });
 
     public Map<String, String> loadData() {
-        logger.error("Return empty data");
+        logger.trace("Return empty data");
         return Collections.emptyMap();
     }
 
 
     @Override
     public Map<String, String> getEncryptedEntries() {
-        logger.error("Return empty encrypted entries");
+        logger.trace("Return empty encrypted entries");
         return Collections.emptyMap();
     }
 

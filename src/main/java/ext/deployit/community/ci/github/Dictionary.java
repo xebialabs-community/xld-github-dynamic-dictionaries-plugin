@@ -70,14 +70,15 @@ public class Dictionary extends BaseDynamicDictionary {
 
         long start = System.currentTimeMillis();
         try {
-            logger.debug("loadData from github ()");
+            logger.debug("loadData from github ({}/{})", repository, branch);
             GithubClient githubClient = new GithubClient(api, token, repository, branch);
             githubClient.connect();
+            logger.debug("read ({})", path);
             return Maps.fromProperties(githubClient.readProperties(path));
         } finally {
             long stop = System.currentTimeMillis();
             long duration = stop - start;
-            logger.debug("loaded Data from github () {} ms", new Long(duration));
+            logger.debug("loaded Data from github took {} ms", new Long(duration));
         }
     }
 
