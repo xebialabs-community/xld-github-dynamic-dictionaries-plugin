@@ -9,13 +9,18 @@ import com.xebialabs.deployit.plugin.api.flow.StepExitCode;
 import com.xebialabs.deployit.plugin.api.udm.*;
 import com.xebialabs.deployit.plugin.api.udm.base.BaseConfigurationItem;
 import ext.deployit.community.ci.dictionary.BaseDynamicDictionary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @Metadata(root = Metadata.ConfigurationItemRoot.ENVIRONMENTS, description = "a Github Dictionary ")
 @TypeIcon(value = "icons/types/github-logo.svg")
 public class Dictionary extends BaseDynamicDictionary {
+
+    private static Logger logger = LoggerFactory.getLogger(Dictionary.class);
 
     @Property(description = "Address of GitHub", defaultValue = "api.github.com")
     public String api;
@@ -52,7 +57,7 @@ public class Dictionary extends BaseDynamicDictionary {
                 githubClient.connect();
                 executionContext.logOutput("connected ");
                 ImmutableMap<String, String> map = Maps.fromProperties(githubClient.readProperties(path));
-                executionContext.logOutput("content is " );
+                executionContext.logOutput("content is ");
                 executionContext.logOutput(map.toString());
                 return StepExitCode.SUCCESS;
             }
@@ -62,18 +67,33 @@ public class Dictionary extends BaseDynamicDictionary {
 
     @Override
     public Map<String, String> loadData() {
-        GithubClient githubClient = new GithubClient(api, token, repository, branch);
-        githubClient.connect();
-        return Maps.fromProperties(githubClient.readProperties(path));
+
+        long start = System.currentTimeMillis();
+        try {
+            logger.debug("loadData from github ()");
+            GithubClient githubClient = new GithubClient(api, token, repository, branch);
+            githubClient.connect();
+            return Maps.fromProperties(githubClient.readProperties(path));
+        } finally {
+            long stop = System.currentTimeMillis();
+            long duration = stop - start;
+            logger.debug("loaded Data from github () {} ms", new Long(duration));
+        }
     }
 
     @Override
     public IDictionary applyTo(DictionaryContext context) {
-        System.out.println("Dictionary.applyTo "+context);
-        System.out.println("context.getApplication().getName() = " + context.getApplication().getName());
-        System.out.println("context.getApplicationVersion().getName() = " + context.getApplicationVersion().getName());
-        System.out.println("context.getContainer().getName() = " + context.getContainer().getName());
-        System.out.println("context.getEnvironment().getName() = " + context.getEnvironment().getName());
+        logger.debug("{} Dictionary.applyTo {}", this, context);
+        if (context.getApplication() != null)
+            logger.debug("context.getApplication().getName() = {} ", context.getApplication().getName());
+        if (context.getApplicationVersion() != null)
+            logger.debug("context.getApplicationVersion().getName() = {} ", context.getApplicationVersion().getName());
+        if (context.getContainer() != null)
+            logger.debug("context.getContainer().getName() = {}", context.getContainer().getName());
+        if (context.getEnvironment() != null)
+            logger.debug("context.getEnvironment().getName() = {}", context.getEnvironment().getName());
+        logger.debug("/ {} Dictionary.applyTo {}", this, context);
         return super.applyTo(context);
     }
+
 }
