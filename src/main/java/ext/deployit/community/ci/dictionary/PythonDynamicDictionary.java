@@ -50,7 +50,6 @@ import java.util.Map;
     description = "A Dictionary that resolves the value dynamically using a pythons script",
     virtual = true
 )
-@TypeIcon(value = "icons/types/book-logo.svg")
 public class PythonDynamicDictionary extends BaseDynamicDictionary {
 
     private static Logger logger = LoggerFactory.getLogger(PythonDynamicDictionary.class);

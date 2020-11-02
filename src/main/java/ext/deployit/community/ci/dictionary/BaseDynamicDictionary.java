@@ -48,7 +48,8 @@ import com.google.common.cache.*;
     description = "A Dictionary that resolves the value dynamically",
     virtual = true
 )
-public abstract class BaseDynamicDictionary extends AbstractDictionary  implements IEncryptedDictionary  {
+@TypeIcon(value = "icons/types/dictionary-logo.svg")
+public abstract class BaseDynamicDictionary extends AbstractDictionary implements IEncryptedDictionary {
 
     @Property(description = "Use a cache (5 seconds)...", defaultValue = "True", category = "Others")
     private boolean useCache;
