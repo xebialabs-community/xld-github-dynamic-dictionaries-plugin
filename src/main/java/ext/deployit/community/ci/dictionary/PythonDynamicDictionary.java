@@ -38,6 +38,7 @@ import com.xebialabs.deployit.plugin.api.reflect.Descriptor;
 import com.xebialabs.deployit.plugin.api.reflect.PropertyDescriptor;
 import com.xebialabs.deployit.plugin.api.udm.Metadata;
 import com.xebialabs.deployit.plugin.api.udm.Property;
+import com.xebialabs.deployit.plugin.api.udm.TypeIcon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +50,7 @@ import java.util.Map;
     description = "A Dictionary that resolves the value dynamically using a pythons script",
     virtual = true
 )
+@TypeIcon(value = "icons/types/book-logo.svg")
 public class PythonDynamicDictionary extends BaseDynamicDictionary {
 
     private static Logger logger = LoggerFactory.getLogger(PythonDynamicDictionary.class);
