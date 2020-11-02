@@ -8,7 +8,22 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-print("Getting the entries for {0}".format(thisCi.id))
-print("the entries are:")
-print("{0}".format(thisCi.getEntries()))
-print("done")
+from http.http_connection import HttpConnection
+from http.http_request import HttpRequest
+import json
+
+headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+url = "{url}/{context}".format(**ci)
+print(url)
+http_connection = HttpConnection(url, ci['username'], ci['password'])
+request = HttpRequest(http_connection, ci['username'], ci['password'])
+r = request.get("/repository/ci/{ci}".format(**ci), headers=headers)
+if r.isSuccessful():
+    results = json.loads(r.response)['entries']
+    for key in results:
+        dynamic_entries[key] = results[key]
+else:
+    r.errorDump()
+    raise Exception("{0} {1}".format(r.status, r.response))
+
+# print dynamic_entries

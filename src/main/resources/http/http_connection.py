@@ -8,7 +8,25 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-print("Getting the entries for {0}".format(thisCi.id))
-print("the entries are:")
-print("{0}".format(thisCi.getEntries()))
-print("done")
+class HttpConnection:
+    def __init__(self, url, username = None, password = None, proxyHost = None, proxyPort = None):
+        self.username = username
+        self.password = password
+        self.url = url
+        self.proxyHost = proxyHost
+        self.proxyPort = proxyPort
+
+    def getUrl(self):
+        return self.url
+
+    def getProxyHost(self):
+        return self.proxyHost
+
+    def getProxyPort(self):
+        return self.proxyPort
+
+    def getUsername(self):
+        return self.username
+
+    def getPassword(self):
+        return self.password

@@ -35,11 +35,9 @@ dependencies {
   compile group: 'org.eclipse.mylyn.github', name: 'org.eclipse.egit.github.core', version: '2.1.5'
   distBundle group: 'org.eclipse.mylyn.github', name: 'org.eclipse.egit.github.core', version: '2.1.5'
 
-  //jython "PyGithub:PyGithub:v1.53:github"
-  jython "PyGithub:PyGithub:v1.28:github"
+
   jython ":requests:2.19.1"
   jython ":certifi:2019.9.11"
-  //jython "kjd:inda:v2.10"
 
   jython python("urllib3:urllib3:1.23") {
     copy {
@@ -47,12 +45,6 @@ dependencies {
     }
   }
 
-  jython python("jpadilla:pyjwt:1.7.1") {
-    moduleName = "jwt"
-    copy {
-      from "PyJWT-1.7.1/jwt"
-    }
-  }
 
   jython python(":six:1.15.0") {
     useModuleName = false // Copy not to moduleName 'six', but rather to the root
@@ -68,7 +60,8 @@ dependencies {
 }
 
 tasks.withType(org.gradle.api.tasks.testing.Test) {
-  systemProperty 'GithubClientTest.token', GithubClientTestToken
+  //systemProperty 'GithubClientTest.token', GithubClientTestToken
+  systemProperties['GithubClientTest.token'] = System.getProperty("GithubClientTestToken")
 }
 
 processResources.configure {

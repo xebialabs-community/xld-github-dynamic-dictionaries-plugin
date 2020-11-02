@@ -8,7 +8,16 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-print("Getting the entries for {0}".format(thisCi.id))
-print("the entries are:")
-print("{0}".format(thisCi.getEntries()))
-print("done")
+import requests
+from requests.auth import HTTPBasicAuth
+
+headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+url = "{url}/{context}/repository/ci/{ci}".format(**ci)
+print(url)
+r = requests.get(url, headers=headers, auth=HTTPBasicAuth(ci['username'], ci['password']))
+print(r.json())
+results = r.json()['entries']
+for key in results:
+    dynamic_entries[key]=results[key]
+
+#print dynamic_entries
