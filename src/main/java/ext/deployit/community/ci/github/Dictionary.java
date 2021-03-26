@@ -120,7 +120,7 @@ public class Dictionary extends BaseDynamicDictionary {
 
 	private GithubClient createGithubClient(){
 		GithubClient githubClient = new GithubClient(api, token, repository, branch);
-		if(this.user.length() > 0) {
+		if(this.user != null && this.user.length() > 0) {
 			githubClient.connect(this.user);
 		}
 		else {
