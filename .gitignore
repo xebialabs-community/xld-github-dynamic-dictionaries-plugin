@@ -11,3 +11,4 @@ supervisord.*
 xl-deploy-trial-server.zip
 xl-deploy-9.7.5-server/
 .DS_Store
+/bin/
