@@ -19,7 +19,7 @@ public class GithubClient {
 
 
     private final String api;
-
+	
     private final String token;
 
     private final String repository;
@@ -34,10 +34,15 @@ public class GithubClient {
         this.repository = repository;
         this.branch = branch;
     }
-
-    public void connect() {
+	
+	public void connect() {
         client = new GitHubClient(this.api);
         client.setOAuth2Token(this.token);
+    }
+	
+	public void connect(String user) {
+        client = new GitHubClient(this.api);
+        client.setCredentials(user, this.token);
     }
 
     public Properties readProperties(String path) {

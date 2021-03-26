@@ -24,8 +24,11 @@ public class Dictionary extends BaseDynamicDictionary {
 
     @Property(description = "Address of GitHub", defaultValue = "api.github.com", category = "Others")
     public String api;
+	
+	@Property(description = "User name for basic authentication", required = false, defaultValue="")
+    public String user;
 
-    @Property(description = "OAuth2 token authentication, can be empty for access a public repository but the API rate limit exceeded can be quickly reached", password = true, required = false)
+    @Property(description = "OAuth2/PAT token authentication, can be empty for access a public repository but the API rate limit exceeded can be quickly reached", password = true, required = false)
     public String token;
 
     @Property(description = "The GitHub repository owner/repo")
@@ -45,8 +48,8 @@ public class Dictionary extends BaseDynamicDictionary {
 
     @Property(description = "Prefix used by the tag", required = false, category = "Others", defaultValue = "v")
     public String githubVersionPrefix;
-
-    @ControlTask(label = "Check connection")
+	
+	@ControlTask(label = "Check connection")
     public List<Step> checkConnection() {
         Step step = new Step() {
 
@@ -63,8 +66,7 @@ public class Dictionary extends BaseDynamicDictionary {
             @Override
             public StepExitCode execute(ExecutionContext executionContext) throws Exception {
                 executionContext.logOutput("open connection on the GitHub repository " + repository + " branch" + branch);
-                GithubClient githubClient = new GithubClient(api, token, repository, branch);
-                githubClient.connect();
+                GithubClient githubClient = createGithubClient();
                 executionContext.logOutput("connected !");
                 executionContext.logOutput("read " + path);
                 ImmutableMap<String, String> map = Maps.fromProperties(githubClient.readProperties(path));
@@ -87,8 +89,7 @@ public class Dictionary extends BaseDynamicDictionary {
                 currentBranch = this.detectedVersion;
             }
             logger.debug("loadData from the GitHub repository '{}' on the branch {}')", repository, currentBranch);
-            GithubClient githubClient = new GithubClient(api, token, repository, currentBranch);
-            githubClient.connect();
+            GithubClient githubClient = createGithubClient();
             logger.debug("read ({})", path);
             return Maps.fromProperties(githubClient.readProperties(path));
         } finally {
@@ -117,5 +118,15 @@ public class Dictionary extends BaseDynamicDictionary {
         return super.applyTo(context);
     }
 
+	private GithubClient createGithubClient(){
+		GithubClient githubClient = new GithubClient(api, token, repository, branch);
+		if(this.user.length() > 0) {
+			githubClient.connect(this.user);
+		}
+		else {
+			githubClient.connect();
+		}
+		return githubClient;
+	}
 
 }

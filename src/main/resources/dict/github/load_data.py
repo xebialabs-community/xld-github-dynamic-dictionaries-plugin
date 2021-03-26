@@ -10,13 +10,11 @@
 
 from github import Github
 
-base_url = ci['base_url']
 username = ci['username']
 password = ci['password']
 repository = ci['repository']  # 'xld-petclinic-docker'
 branch = ci['branch']
 path = ci['path']  # 'dar/config/log4j.properties'
-
 
 # First create a Github instance:
 print ("open a connection to github using the '%s' username" % username)
