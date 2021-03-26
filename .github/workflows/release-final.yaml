@@ -4,8 +4,8 @@ on:
   push:
     tags:
       - "v*"
-    tags-ignore:
-      - "v*-rc*"
+      - "!v*-rc*"
+
 jobs:
   tagged-release:
     name: "Tagged Release"
